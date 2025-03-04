@@ -2,17 +2,17 @@ package com.valledev.banksystem.entities;
 
 import com.valledev.banksystem.enums.AccountType;
 
-public class BankAccount {
+public abstract class BankAccount {
 
     private String accountNumber;
     private String accountHolderName;
-    private double initialBalance;
+    private double balance;
     private AccountType accountType;
 
-    public BankAccount(String accountNumber, String accountHolderName, double initialBalance, AccountType accountType) {
-        setAccountNumber(accountNumber);
+    public BankAccount(String accountNumber, String accountHolderName, double balance, AccountType accountType) {
+        this.accountNumber = formatAccountNumber(accountNumber);
         this.accountHolderName = accountHolderName;
-        this.initialBalance = initialBalance;
+        this.balance = balance;
         this.accountType = accountType;
     }
 
@@ -20,8 +20,12 @@ public class BankAccount {
         return accountNumber;
     }
 
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = String.format("%010d", Integer.parseInt(accountNumber));
+    private String formatAccountNumber(String accountNumber) {
+        try {
+            return String.format("%010d", Integer.parseInt(accountNumber));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Número da conta inválido!");
+        }
     }
 
     public String getAccountHolderName() {
@@ -32,12 +36,12 @@ public class BankAccount {
         this.accountHolderName = accountHolderName;
     }
 
-    public double getInitialBalance() {
-        return initialBalance;
+    public double getbalance() {
+        return balance;
     }
 
-    public void setInitialBalance(double initialBalance) {
-        this.initialBalance = initialBalance;
+    public void setbalance(double balance) {
+        this.balance = balance;
     }
 
     public AccountType getAccountType() {
@@ -46,5 +50,11 @@ public class BankAccount {
 
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
+    }
+
+    public String toString() {
+        return "Conta: " + accountNumber + " - " + accountHolderName +
+                "\nTipo: " + accountType +
+                "\nSaldo final: R$ " + String.format("%.2f", balance);
     }
 }
