@@ -1,6 +1,6 @@
 package com.valledev.banksystem.enums;
 
 public enum AccountType {
-    CHECKING, // Conta Corrente
+    CURRENT, // Conta Corrente
     SAVINGS   // Conta Poupança
 }

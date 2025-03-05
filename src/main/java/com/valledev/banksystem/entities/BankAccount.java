@@ -6,7 +6,7 @@ public abstract class BankAccount {
 
     private String accountNumber;
     private String accountHolderName;
-    private double balance;
+    protected double balance;
     private AccountType accountType;
 
     public BankAccount(String accountNumber, String accountHolderName, double balance, AccountType accountType) {
@@ -52,9 +52,12 @@ public abstract class BankAccount {
         this.accountType = accountType;
     }
 
+    public abstract void applyTransaction(double amount, boolean isDeposit);
+
     public String toString() {
-        return "Conta: " + accountNumber + " - " + accountHolderName +
-                "\nTipo: " + accountType +
-                "\nSaldo final: R$ " + String.format("%.2f", balance);
+        return "\uD83C\uDD94 Account Number: " + accountNumber
+                + "\n\uD83D\uDC64 Account Holder:" + accountHolderName
+                + "\n\uD83C\uDFE6 Account Type: " + accountType
+                + "\n\uD83D\uDCB0 Balance: R$ " + String.format("%.2f", balance);
     }
 }
